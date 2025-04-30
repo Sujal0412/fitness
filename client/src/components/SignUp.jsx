@@ -6,7 +6,7 @@ import { UserSignUp } from "../api";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/reducers/userSlice";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   max-width: 500px;
@@ -32,7 +32,7 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const validateInputs = () => {
     if (!name || !email || !password) {
       alert("Please fill in all fields");
@@ -50,6 +50,7 @@ const SignUp = () => {
           dispatch(loginSuccess(res.data));
           toast.success("Account Created Success");
           setLoading(false);
+          navigate("/");
           setButtonDisabled(false);
         })
         .catch((err) => {

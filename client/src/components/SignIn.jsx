@@ -6,7 +6,7 @@ import { UserSignIn } from "../api";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/reducers/userSlice";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   max-width: 500px;
@@ -31,7 +31,7 @@ const SignIn = () => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const validateInputs = () => {
     if (!email || !password) {
       alert("Please fill in all fields");
@@ -49,6 +49,7 @@ const SignIn = () => {
           dispatch(loginSuccess(res.data));
           toast.success("Login Success");
           setLoading(false);
+          navigate("/");
           setButtonDisabled(false);
         })
         .catch((err) => {
